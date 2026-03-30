@@ -69,7 +69,7 @@ SEASON_COLUMNS = [
 # ── 番組slug→短縮名マッピング ──
 SHOW_SHORT_MAP = {
     "kyou-suki": "今日好き",
-    "ookami": "オオカミくん",
+    "ookami-chan": "オオカミくん",
     "koi-ste": "恋ステ",
     "shuffle-island": "シャッフルアイランド",
     "love-power": "ラブパワーキングダム",
@@ -211,7 +211,7 @@ for i in range(1, 13):
     else:
         urls = [f"{TEIBAN_BASE}/ookami{i}"]
     SCRAPE_TARGETS.append({
-        "show_slug": "ookami",
+        "show_slug": "ookami-chan",
         "season_number": i,
         "season_name": season_name,
         "urls": urls,

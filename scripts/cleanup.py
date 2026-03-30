@@ -41,8 +41,8 @@ EXCLUDE_NAMES = {
 
 # ── show_slug 正規化マップ ──
 SLUG_NORMALIZE = {
-    "ookami-kun": "ookami",
-    "ookami-chan": "ookami",
+    "ookami-kun": "ookami-chan",
+    "ookami": "ookami-chan",
 }
 
 # ── 今日好き season_name 正規化マップ（旧名→正式名） ──
