@@ -57,11 +57,29 @@ def generate_seasons_from_cast(cast_csv_path, output_seasons_csv):
         show_order[slug] += 1
         season["order"] = show_order[slug]
 
-    # year を season_name から推測
+    # year をconfigのマッピングから取得、なければseason_nameから推測
+    from scripts.config import KYOUSUKI_SEASONS, OOKAMI_SEASONS
+    # configの(season_name→year)逆引きテーブルを構築
+    name_to_year = {}
+    for _num, data in KYOUSUKI_SEASONS.items():
+        if isinstance(data, tuple):
+            name_to_year[("kyou-suki", data[0])] = str(data[1])
+    for _num, data in OOKAMI_SEASONS.items():
+        if isinstance(data, tuple):
+            name_to_year[("ookami-chan", data[0])] = str(data[1])
+
     for key, season in seen.items():
-        m = re.search(r"(20\d{2})", season["season_name"])
-        if m:
-            season["year"] = m.group(1)
+        slug = season["show_slug"]
+        sname = season["season_name"]
+        # configから年を取得
+        config_year = name_to_year.get((slug, sname), "")
+        if config_year and config_year != "0":
+            season["year"] = config_year
+        else:
+            # season_nameから推測
+            m = re.search(r"(20\d{2})", sname)
+            if m:
+                season["year"] = m.group(1)
 
     # CSV出力
     with open(output_seasons_csv, "w", newline="", encoding="utf-8-sig") as f:
